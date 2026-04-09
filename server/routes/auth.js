@@ -47,6 +47,18 @@ router.post('/login', (req, res) => {
 router.post('/register', (req, res) => {
   const { username, password, name, role = 'child' } = req.body;
 
+  if (!username || !password || !name) {
+    return res.status(400).json({ error: '请填写所有必填字段' });
+  }
+
+  if (username.length < 3) {
+    return res.status(400).json({ error: '用户名至少需要3个字符' });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ error: '密码至少需要6个字符' });
+  }
+
   try {
     const existingUser = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
 
@@ -61,9 +73,19 @@ router.post('/register', (req, res) => {
       VALUES (?, ?, ?, ?)
     `).run(username, hashedPassword, name, role);
 
-    res.status(201).json({ message: '注册成功', userId: result.lastInsertRowid });
+    res.status(201).json({ 
+      message: '注册成功', 
+      userId: result.lastInsertRowid,
+      user: {
+        id: result.lastInsertRowid,
+        username,
+        name,
+        role
+      }
+    });
   } catch (error) {
-    res.status(500).json({ error: '注册失败' });
+    console.error('注册错误:', error);
+    res.status(500).json({ error: '注册失败: ' + error.message });
   }
 });
 

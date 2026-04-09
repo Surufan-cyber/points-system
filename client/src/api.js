@@ -58,6 +58,7 @@ export const userAPI = {
   getById: (id) => api.get(`/users/${id}`),
   update: (id, data) => api.put(`/users/${id}`, data),
   delete: (id) => api.delete(`/users/${id}`),
+  register: (data) => api.post('/auth/register', data),
   getPointHistory: (id, params) => api.get(`/users/${id}/point-history`, { params }),
   getAchievements: (id) => api.get(`/users/${id}/achievements`),
   adjustPoints: (id, data) => api.post(`/users/${id}/adjust-points`, data),
