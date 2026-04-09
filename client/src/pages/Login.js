@@ -65,14 +65,6 @@ function Login({ onLogin }) {
             </Button>
           </Form.Item>
         </Form>
-        
-        <div style={{ marginTop: 24, padding: 16, background: '#f5f5f5', borderRadius: 8 }}>
-          <p style={{ margin: 0, fontSize: 14, color: '#666' }}>
-            <strong>默认账号：</strong><br/>
-            管理员: admin / admin123<br/>
-            孩子: child1 / child123
-          </p>
-        </div>
       </div>
     </div>
   );
